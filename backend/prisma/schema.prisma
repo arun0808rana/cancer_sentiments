@@ -35,4 +35,5 @@ model gift_user_rel {
   user_id Int
   gift    Gift @relation(fields: [gift_id], references: [id])
   gift_id Int
+  @@unique([user_id, gift_id])
 }

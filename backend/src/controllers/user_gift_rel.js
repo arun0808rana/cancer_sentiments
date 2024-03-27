@@ -18,6 +18,7 @@ giftUserRel.post("/create", (req, res) => {
       res.status(200).json(response);
     })
     .catch((error) => {
+      console.error('Error in gift-user-rel', error.message);
       response.error = error;
       res.status(500).json(response);
     });
@@ -44,24 +45,35 @@ giftUserRel.patch("/update/:id", (req, res) => {
       res.status(200).json(response);
     })
     .catch((error) => {
-      console.error(error);
+      console.error('Error in gift-user-rel', error.message);
       response.error = error;
       res.status(500).json(response);
     });
 });
 
-giftUserRel.get("/list", (req, res) => {
+giftUserRel.get("/list/:userId", (req, res) => {
   const response = {
     data: [],
     error: null,
   };
+  const userId = req.params.userId;
+
   prisma.gift_user_rel
-    .findMany()
+    .findMany({
+      where:{
+        user_id: +userId
+      },
+      select: {
+        id: true,
+        gift_id: true,
+      },
+    })
     .then((results) => {
       response.data = results;
       res.status(200).json(response);
     })
     .catch((error) => {
+      console.error('Error in gift-user-rel-listing', error.message);
       response.error = error;
       res.status(500).json(response);
     });

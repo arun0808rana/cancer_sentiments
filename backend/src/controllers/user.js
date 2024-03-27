@@ -14,6 +14,7 @@ userRouter.get("/list", (req, res) => {
       res.status(200).json(response);
     })
     .catch((error) => {
+      console.log('Errror in user listing fn', error.message);
       response.error = error;
       res.status(500).json(response);
     });
@@ -33,6 +34,7 @@ userRouter.post("/register", (req, res) => {
       res.status(200).json(response);
     })
     .catch((error) => {
+      console.log('Errror in user register fn', error.message);
       response.error = error;
       res.status(500).json(response);
     });
@@ -58,6 +60,7 @@ userRouter.patch("/update/:id", (req, res) => {
       res.status(200).json(response);
     })
     .catch((error) => {
+      console.log('Errror in user update fn', error.message);
       console.error(error);
       response.error = error;
       res.status(500).json(response);
